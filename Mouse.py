@@ -4,8 +4,8 @@ import hid
 
 
 # 摇杆的端口配置 -> AD采样端口
-deviationX = machine.ADC(3)
-deviationY = machine.ADC(2)
+XdeviationAD = machine.ADC(3)
+YdeviationAD = machine.ADC(2)
 
 # A、B按键配置
 buttonA = Pin(6, Pin.IN, Pin.PULL_UP)
@@ -16,13 +16,13 @@ mouse = hid.Mouse()
 
 while True:
     
-#     adc1 = deviationX.read_u16() - 32768
-#     print(adc1)
-#     adc2 = deviationY.read_u16() - 32768
-#     print(adc2)
+    Xdeviation = int((XdeviationAD.read_u16() - 32768) / 3500)
+#     print(Xdeviation)
+    Ydeviation = int((YdeviationAD.read_u16() - 32768) / 3500)
+#     print(Ydeviation)
 #     aValue = buttonA.value()
 #     print(aValue)
 #     bValue = buttonB.value()
 #     print(bValue)
-    mouse.move(50, 0)
-    time.sleep(1)
+    mouse.move(Xdeviation, Ydeviation)
+    time.sleep(0.1)
