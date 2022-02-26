@@ -17,12 +17,13 @@ mouse = hid.Mouse()
 while True:
     
     Xdeviation = int((XdeviationAD.read_u16() - 32768) / 3500)
-#     print(Xdeviation)
     Ydeviation = int((YdeviationAD.read_u16() - 32768) / 3500)
-#     print(Ydeviation)
-#     aValue = buttonA.value()
-#     print(aValue)
-#     bValue = buttonB.value()
-#     print(bValue)
-    mouse.move(Xdeviation, Ydeviation)
+    if (Xdeviation != 0) or (Ydeviation != 0):
+        mouse.move(Xdeviation, Ydeviation)
+    
+    if buttonA.value() == 0:
+        mouse.click(mouse.BUTTON_RIGHT)
+    if buttonB.value() == 0:
+        mouse.click(mouse.BUTTON_LEFT)
+
     time.sleep(0.1)
